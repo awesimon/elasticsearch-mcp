@@ -1,0 +1,52 @@
+{
+  "name": "@awesome-ai/mcp-server-elasticsearch",
+  "version": "1.0.2",
+  "description": "Elasticsearch MCP Server",
+  "keywords": [
+    "elasticsearch",
+    "search",
+    "mcp",
+    "mcp-server"
+  ],
+  "homepage": "https://github.com/awesimon/mcp-server-elasticsearch",
+  "bugs": {
+    "url": "https://github.com/awesimon/mcp-server-elasticsearch/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awesimon/mcp-server-elasticsearch.git"
+  },
+  "license": "MIT",
+  "author": "Simon",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "mcp-server-elasticsearch": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && shx chmod +x dist/*.js",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "start": "node dist/index.js",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "test": "npm run build"
+  },
+  "dependencies": {
+    "@awesome-ai/mcp-server-elasticsearch": "^1.0.2",
+    "@elastic/elasticsearch": "^8.17.1",
+    "@modelcontextprotocol/sdk": "1.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.15",
+    "shx": "0.4.0",
+    "typescript": "5.8.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "module": "dist/index.js"
+}
