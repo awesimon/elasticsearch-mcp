@@ -1,12 +1,14 @@
 # Elasticsearch MCP Server
 
+[English](./README.md) | [中文](./README.zh-CN.md)
+
 MCP Server for connecting to your Elasticsearch cluster directly from any MCP Client (like Claude Desktop, Cursor).
 
 This server connects agents to your Elasticsearch data using the Model Context Protocol. It allows you to interact with your Elasticsearch indices through natural language conversations.
 
 ## Feature Overview
 
-### Available Tools
+### Available Features
 
 * `list_indices`: List available Elasticsearch indices, support regex
 * `get_mappings`: Get field mappings for a specific Elasticsearch index
@@ -134,7 +136,6 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
 
    🔍 MCP Inspector is up and running at http://localhost:5173 🚀
    ```
-
 ## Example Queries
 
 > [!TIP]
