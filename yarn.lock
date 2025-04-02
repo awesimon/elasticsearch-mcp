@@ -2,14 +2,6 @@
 # yarn lockfile v1
 
 
-"@awesome-ai/mcp-server-elasticsearch@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/@awesome-ai/mcp-server-elasticsearch/-/mcp-server-elasticsearch-1.0.2.tgz"
-  integrity sha512-XaAe1AzMDSXKClWhQdWr47ZobqqyxKrCWKEevUlCmdsgOTfFS8wNInCRtPeTC8k6FbtDcEse+FDiAhPItraKaA==
-  dependencies:
-    "@elastic/elasticsearch" "^8.17.1"
-    "@modelcontextprotocol/sdk" "1.8.0"
-
 "@elastic/elasticsearch@^8.17.1":
   version "8.17.1"
   resolved "https://registry.npmjs.org/@elastic/elasticsearch/-/elasticsearch-8.17.1.tgz"

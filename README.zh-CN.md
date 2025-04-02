@@ -11,12 +11,30 @@ Elasticsearch MCP 服务器是一个连接器，允许你通过任何 MCP 客户
 * `list_indices`: 列出可用的 Elasticsearch 索引，支持正则表达式
 * `get_mappings`: 获取特定 Elasticsearch 索引的字段映射
 * `search`: 使用提供的查询 DSL 执行 Elasticsearch 搜索
+* `elasticsearch_health`: 获取 Elasticsearch 集群健康状态，可选包含索引级详情
+* `create_index`: 创建 Elasticsearch 索引，可配置设置和映射
+* `create_mapping`: 创建或更新 Elasticsearch 索引的映射结构
+* `bulk_import`: 批量导入数据到 Elasticsearch 索引
 
 ### 工作原理
 
 1. MCP 客户端分析你的请求并确定需要执行的 Elasticsearch 操作
 2. MCP 服务器执行这些操作（列出索引、获取映射、执行搜索）
 3. MCP 客户端处理结果并以用户友好的格式呈现
+
+## 示例查询
+
+> [!TIP]
+> 以下是您可以在MCP客户端中尝试的一些自然语言查询。
+
+* "我的Elasticsearch集群中有哪些索引？"
+* "显示'products'索引的字段映射。"
+* "查找上个月所有超过500美元的订单。"
+* "哪些产品收到的5星评价最多？"
+* "我的Elasticsearch集群的健康状态如何？"
+* "创建一个名为'users'的新索引，设置3个分片和1个副本。"
+* "为'products'索引添加一个名为'tags'的关键词类型字段。"
+* "将这些客户数据批量导入到'customers'索引中。"
 
 ## 入门指南
 
@@ -131,6 +149,5 @@ Elasticsearch MCP Server 支持多种配置选项来连接到你的 Elasticsearc
 
    🔍 MCP Inspector is up and running at http://localhost:5173 🚀
    ```
-
 
 如果遇到问题，请随时在 GitHub 仓库上开一个 issue。 

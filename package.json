@@ -1,6 +1,6 @@
 {
-  "name": "@awesome-ai/mcp-server-elasticsearch",
-  "version": "1.0.2",
+  "name": "@awesome-ai/elasticsearch-mcp",
+  "version": "1.0.0",
   "description": "Elasticsearch MCP Server",
   "keywords": [
     "elasticsearch",
@@ -8,13 +8,13 @@
     "mcp",
     "mcp-server"
   ],
-  "homepage": "https://github.com/awesimon/mcp-server-elasticsearch",
+  "homepage": "https://github.com/awesimon/elasticsearch-mcp",
   "bugs": {
-    "url": "https://github.com/awesimon/mcp-server-elasticsearch/issues"
+    "url": "https://github.com/awesimon/elasticsearch-mcp/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/awesimon/mcp-server-elasticsearch.git"
+    "url": "git+https://github.com/awesimon/elasticsearch-mcp.git"
   },
   "license": "MIT",
   "author": "Simon",
@@ -22,7 +22,7 @@
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "mcp-server-elasticsearch": "dist/index.js"
+    "elasticsearch-mcp": "dist/index.js"
   },
   "files": [
     "dist"
@@ -36,7 +36,6 @@
     "test": "npm run build"
   },
   "dependencies": {
-    "@awesome-ai/mcp-server-elasticsearch": "^1.0.2",
     "@elastic/elasticsearch": "^8.17.1",
     "@modelcontextprotocol/sdk": "1.8.0"
   },

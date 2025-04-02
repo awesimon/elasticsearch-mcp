@@ -11,6 +11,10 @@ This server connects agents to your Elasticsearch data using the Model Context P
 * `list_indices`: List available Elasticsearch indices, support regex
 * `get_mappings`: Get field mappings for a specific Elasticsearch index
 * `search`: Perform an Elasticsearch search with the provided query DSL
+* `elasticsearch_health`: Get Elasticsearch cluster health status, optionally including index-level details
+* `create_index`: Create Elasticsearch index with optional settings and mappings
+* `create_mapping`: Create or update mapping structure for an Elasticsearch index
+* `bulk_import`: Bulk import data into an Elasticsearch index
 
 ### How It Works
 
@@ -140,5 +144,9 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
 * "Show me the field mappings for the 'products' index."
 * "Find all orders over $500 from last month."
 * "Which products received the most 5-star reviews?"
+* "What is the health status of my Elasticsearch cluster?"
+* "Create a new index called 'users' with 3 shards and 1 replica."
+* "Add a keyword type field called 'tags' to the 'products' index."
+* "Bulk import these customer records into the 'customers' index."
 
 If you encounter issues, feel free to open an issue on the GitHub repository.
