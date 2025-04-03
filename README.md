@@ -6,9 +6,9 @@ MCP Server for connecting to your Elasticsearch cluster directly from any MCP Cl
 
 This server connects agents to your Elasticsearch data using the Model Context Protocol. It allows you to interact with your Elasticsearch indices through natural language conversations.
 
-## 
+## Demo
 
-https://www.youtube.com/embed/iJ1NPzAQ3bU?si=AVG1EnOUExWHuX0q
+[![Elasticsearch MCP Demo](https://img.youtube.com/vi/iJ1NPzAQ3bU/0.jpg)](https://www.youtube.com/watch?v=iJ1NPzAQ3bU "Elasticsearch MCP Demo")
 
 ## Feature Overview
 

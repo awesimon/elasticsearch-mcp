@@ -8,7 +8,7 @@ MCP 服务器用于从任何 MCP 客户端（如 Claude Desktop、Cursor）直�
 
 ## Demo
 
-https://www.youtube.com/embed/iJ1NPzAQ3bU?si=AVG1EnOUExWHuX0q
+[![Elasticsearch MCP Demo](https://img.youtube.com/vi/iJ1NPzAQ3bU/0.jpg)](https://www.youtube.com/watch?v=iJ1NPzAQ3bU "Elasticsearch MCP Demo")
 
 ## 功能概述
 
