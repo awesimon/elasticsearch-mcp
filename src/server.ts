@@ -8,9 +8,23 @@ import { search } from "./tools/search.js";
 import { getClusterHealth } from "./tools/getClusterHealth.js";
 import { createIndex } from "./tools/createIndex.js";
 import { createMapping } from "./tools/createMapping.js";
-import { bulkImport } from "./tools/bulkImport.js";
+import { bulk } from "./tools/bulk.js";
+import { reindex } from "./tools/reindex.js";
+import { createIndexTemplate, getIndexTemplate, deleteIndexTemplate } from "./tools/createIndexTemplate.js";
 
-export { listIndices, getMappings, search, getClusterHealth, createIndex, createMapping, bulkImport }; 
+export { 
+  listIndices, 
+  getMappings, 
+  search, 
+  getClusterHealth, 
+  createIndex, 
+  createMapping, 
+  bulk, 
+  reindex, 
+  createIndexTemplate,
+  getIndexTemplate,
+  deleteIndexTemplate
+}; 
 
 export async function createElasticsearchMcpServer(
   config: ElasticsearchConfig
@@ -153,8 +167,8 @@ export async function createElasticsearchMcpServer(
 
   // Bulk import data into an Elasticsearch index
   server.tool(
-    "bulk_import",
-    "Bulk import data into an Elasticsearch index",
+    "bulk",
+    "Bulk data into an Elasticsearch index",
     {
       index: z
         .string()
@@ -173,7 +187,105 @@ export async function createElasticsearchMcpServer(
         .describe("Optional document ID field name, if specified, the value of this field will be used as the document ID")
     },
     async ({ index, documents, idField }) => {
-      return await bulkImport(esClient, index, documents, idField);
+      return await bulk(esClient, index, documents, idField);
+    }
+  );
+
+  // Reindex from source to target index with optional query and script
+  server.tool(
+    "reindex",
+    "Reindex data from a source index to a target index",
+    {
+      sourceIndex: z
+        .string()
+        .trim()
+        .min(1, "Source index name is required")
+        .describe("Name of the source Elasticsearch index"),
+      
+      destIndex: z
+        .string()
+        .trim()
+        .min(1, "Destination index name is required")
+        .describe("Name of the destination Elasticsearch index"),
+      
+      query: z
+        .record(z.any())
+        .optional()
+        .describe("Optional query to filter which documents to reindex"),
+      
+      script: z
+        .record(z.any())
+        .optional()
+        .describe("Optional script to transform documents during reindex")
+    },
+    async ({ sourceIndex, destIndex, query, script }) => {
+      return await reindex(esClient, sourceIndex, destIndex, script, query);
+    }
+  );
+
+  // Create or update an index template
+  server.tool(
+    "create_index_template",
+    "Create or update an Elasticsearch index template",
+    {
+      name: z
+        .string()
+        .trim()
+        .min(1, "Template name is required")
+        .describe("Name of the index template"),
+      
+      indexPatterns: z
+        .array(z.string())
+        .min(1, "At least one index pattern is required")
+        .describe("Array of index patterns this template applies to"),
+      
+      template: z
+        .record(z.any())
+        .describe("Template configuration including settings, mappings, and aliases"),
+      
+      priority: z
+        .number()
+        .optional()
+        .describe("Optional template priority - higher values have higher precedence"),
+      
+      version: z
+        .number()
+        .optional()
+        .describe("Optional template version number")
+    },
+    async ({ name, indexPatterns, template, priority, version }) => {
+      return await createIndexTemplate(esClient, name, indexPatterns, template, priority, version);
+    }
+  );
+
+  // Get index templates
+  server.tool(
+    "get_index_template",
+    "Get information about Elasticsearch index templates",
+    {
+      name: z
+        .string()
+        .optional()
+        .describe("Optional template name filter - if omitted, all templates are returned")
+    },
+    async ({ name }) => {
+      return await getIndexTemplate(esClient, name);
+    }
+  );
+
+  // Delete an index template
+  server.tool(
+    "delete_index_template",
+    "Delete an Elasticsearch index template",
+    {
+      name: z
+        .string()
+        .trim()
+        .min(1, "Template name is required")
+        .describe("Name of the template to delete")
+    },
+    async ({ name }) => {
+      return await deleteIndexTemplate(esClient, name);
     }
   );
 

@@ -20,7 +20,11 @@ This server connects agents to your Elasticsearch data using the Model Context P
 * `elasticsearch_health`: Get Elasticsearch cluster health status, optionally including index-level details
 * `create_index`: Create Elasticsearch index with optional settings and mappings
 * `create_mapping`: Create or update mapping structure for an Elasticsearch index
-* `bulk_import`: Bulk import data into an Elasticsearch index
+* `bulk`: Bulk data into an Elasticsearch index
+* `reindex`: Reindex data from a source index to a target index with optional query and script
+* `create_index_template`: Create or update an index template
+* `get_index_template`: Get information about index templates
+* `delete_index_template`: Delete an index template
 
 ### How It Works
 
@@ -153,6 +157,10 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
 * "Create a new index called 'users' with 3 shards and 1 replica."
 * "Add a keyword type field called 'tags' to the 'products' index."
 * "Bulk import these customer records into the 'customers' index."
+* "Reindex data from 'old_index' to 'new_index'."
+* "Create an index template for logs with pattern 'logs-*'."
+* "Show me all my index templates."
+* "Delete the 'outdated_template' index template."
 
 If you encounter issues, feel free to open an issue on the GitHub repository.
 

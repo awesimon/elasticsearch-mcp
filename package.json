@@ -1,6 +1,6 @@
 {
   "name": "@awesome-ai/elasticsearch-mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Elasticsearch MCP Server",
   "keywords": [
     "elasticsearch",

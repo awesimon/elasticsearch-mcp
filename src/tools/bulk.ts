@@ -1,6 +1,6 @@
 import { Client } from "@elastic/elasticsearch";
 
-export async function bulkImport(
+export async function bulk(
   esClient: Client,
   index: string,
   documents: Record<string, any>[],
