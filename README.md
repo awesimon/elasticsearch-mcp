@@ -8,7 +8,7 @@ This server connects agents to your Elasticsearch data using the Model Context P
 
 ## Demo
 
-[![Elasticsearch MCP Demo](https://img.youtube.com/vi/iJ1NPzAQ3bU/0.jpg)](https://www.youtube.com/watch?v=iJ1NPzAQ3bU "Elasticsearch MCP Demo")
+[![Elasticsearch MCP Demo](https://img.youtube.com/vi/Wqw1XL8de5A/0.jpg)](https://www.youtube.com/watch?v=Wqw1XL8de5A "Elasticsearch MCP Demo")
 
 ## Feature Overview
 

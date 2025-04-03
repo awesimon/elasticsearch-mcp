@@ -89,88 +89,88 @@ export async function createElasticsearchMcpServer(
     }
   );
 
-  // 获取集群健康状态
+  // Get the health status of the Elasticsearch cluster, optionally include index-level details
   server.tool(
     "elasticsearch_health",
-    "获取Elasticsearch集群健康状态，可选包含索引级别详情",
+    "Get the health status of the Elasticsearch cluster, optionally include index-level details",
     {
       includeIndices: z
         .boolean()
         .optional()
         .default(false)
-        .describe("是否包含各索引的健康状态详情"),
+        .describe("Whether to include index-level details"),
     },
     async ({ includeIndices }) => {
       return await getClusterHealth(esClient, includeIndices);
     }
   );
 
-  // 创建索引
+  // Create an Elasticsearch index, optionally configure settings and mappings
   server.tool(
     "create_index",
-    "创建Elasticsearch索引，可选配置设置和映射",
+    "Create an Elasticsearch index, optionally configure settings and mappings",
     {
       index: z
         .string()
         .trim()
-        .min(1, "索引名称为必填项")
-        .describe("要创建的Elasticsearch索引名称"),
+        .min(1, "Index name is required")
+        .describe("Name of the Elasticsearch index to create"),
       
       settings: z
         .record(z.any())
         .optional()
-        .describe("索引设置，如分片数、副本数等"),
+        .describe("Index settings, such as number of shards and replicas"),
       
       mappings: z
         .record(z.any())
         .optional()
-        .describe("索引映射定义，定义字段类型等")
+        .describe("Index mappings, defining field types, etc.")
     },
     async ({ index, settings, mappings }) => {
       return await createIndex(esClient, index, settings, mappings);
     }
   );
 
-  // 创建/更新映射
+  // Create or update the mapping structure of an Elasticsearch index
   server.tool(
     "create_mapping",
-    "创建或更新Elasticsearch索引的映射结构",
+    "Create or update the mapping structure of an Elasticsearch index",
     {
       index: z
         .string()
         .trim()
-        .min(1, "索引名称为必填项")
-        .describe("Elasticsearch索引名称"),
+        .min(1, "Index name is required")
+        .describe("Elasticsearch index name"),
       
       mappings: z
         .record(z.any())
-        .describe("索引映射定义JSON对象")
+        .describe("Index mappings, defining field types, etc.")
     },
     async ({ index, mappings }) => {
       return await createMapping(esClient, index, mappings);
     }
   );
 
-  // 批量导入数据
+  // Bulk import data into an Elasticsearch index
   server.tool(
     "bulk_import",
-    "批量导入数据到Elasticsearch索引",
+    "Bulk import data into an Elasticsearch index",
     {
       index: z
         .string()
         .trim()
-        .min(1, "索引名称为必填项")
-        .describe("目标Elasticsearch索引名称"),
+        .min(1, "Index name is required")
+        .describe("Target Elasticsearch index name"),
       
       documents: z
         .array(z.record(z.any()))
-        .min(1, "至少需要一个文档")
-        .describe("要导入的文档数组"),
+        .min(1, "At least one document is required")
+        .describe("Array of documents to import"),
       
       idField: z
         .string()
         .optional()
-        .describe("可选的文档ID字段名，如果指定，将使用文档中该字段的值作为文档ID")
+        .describe("Optional document ID field name, if specified, the value of this field will be used as the document ID")
     },
     async ({ index, documents, idField }) => {
       return await bulkImport(esClient, index, documents, idField);
