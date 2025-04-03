@@ -6,6 +6,10 @@ MCP 服务器用于从任何 MCP 客户端（如 Claude Desktop、Cursor）直�
 
 该服务器使用模型上下文协议（Model Context Protocol）将智能体连接到您的 Elasticsearch 数据。它允许您通过自然语言对话与 Elasticsearch 索引进行交互。
 
+## Demo
+
+https://www.youtube.com/embed/iJ1NPzAQ3bU?si=AVG1EnOUExWHuX0q
+
 ## 功能概述
 
 ### 可用工具
@@ -150,5 +154,8 @@ Elasticsearch MCP 服务器支持以下配置选项来连接到您的 Elasticsea
 
    🔍 MCP Inspector is up and running at http://localhost:5173 🚀
    ```
+
+## Inspired by
+- [mcp-server-elasticsearch](https://github.com/elastic/mcp-server-elasticsearch).
 
 如果您遇到问题，请随时在 GitHub 仓库上提出 issue。 
