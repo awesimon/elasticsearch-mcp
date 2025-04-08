@@ -80,8 +80,8 @@ MCP 服务器用于从任何 MCP 客户端（如 Claude Desktop、Cursor）直�
            "@awesome-ai/elasticsearch-mcp"
          ],
          "env": {
-           "HOST": "你的-elasticsearch-主机",
-           "API_KEY": "你的-api-密钥"
+           "ES_HOST": "你的-elasticsearch-主机",
+           "ES_API_KEY": "你的-api-密钥"
          }
        }
      }
@@ -102,11 +102,11 @@ Elasticsearch MCP 服务器支持以下配置选项来连接到您的 Elasticsea
 
 | 环境变量 | 描述 | 必需 |
 |---------------------|-------------|----------|
-| `HOST` | 您的 Elasticsearch 实例 URL | 是 |
-| `API_KEY` | 用于身份验证的 Elasticsearch API 密钥 | 否 |
-| `USERNAME` | 用于基本身份验证的 Elasticsearch 用户名 | 否 |
-| `PASSWORD` | 用于基本身份验证的 Elasticsearch 密码 | 否 |
-| `CA_CERT` | Elasticsearch SSL/TLS 的自定义 CA 证书路径 | 否 |
+| `ES_HOST` | 您的 Elasticsearch 实例 URL（兼容旧版 `HOST`） | 是 |
+| `ES_API_KEY` | 用于身份验证的 Elasticsearch API 密钥（兼容旧版 `API_KEY`） | 否 |
+| `ES_USERNAME` | 用于基本身份验证的 Elasticsearch 用户名（兼容旧版 `USERNAME`） | 否 |
+| `ES_PASSWORD` | 用于基本身份验证的 Elasticsearch 密码（兼容旧版 `PASSWORD`） | 否 |
+| `ES_CA_CERT` | Elasticsearch SSL/TLS 的自定义 CA 证书路径（兼容旧版 `CA_CERT`） | 否 |
 
 ## 本地开发
 
@@ -141,8 +141,8 @@ Elasticsearch MCP 服务器支持以下配置选项来连接到您的 Elasticsea
            "/path/to/your/project/dist/index.js"
          ],
          "env": {
-           "HOST": "你的-elasticsearch-主机",
-           "API_KEY": "你的-api-密钥"
+           "ES_HOST": "你的-elasticsearch-主机",
+           "ES_API_KEY": "你的-api-密钥"
          }
        }
      }
@@ -151,7 +151,7 @@ Elasticsearch MCP 服务器支持以下配置选项来连接到您的 Elasticsea
 
 5. **使用 MCP Inspector 进行调试**
    ```bash
-   HOST=your-elasticsearch-url API_KEY=your-api-key npm run inspector
+   ES_HOST=your-elasticsearch-url ES_API_KEY=your-api-key npm run inspector
    ```
 
    这将启动 MCP Inspector，允许您调试和分析请求。您应该会看到：

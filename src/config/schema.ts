@@ -71,10 +71,10 @@ export function createClientOptions(config: ElasticsearchConfig): ClientOptions 
 // 从环境变量创建配置
 export function loadConfigFromEnv(): ElasticsearchConfig {
   return {
-    url: process.env.HOST || "",
-    apiKey: process.env.API_KEY || "",
-    username: process.env.USERNAME || "",
-    password: process.env.PASSWORD || "",
-    caCert: process.env.CA_CERT || "",
+    url: process.env.ES_HOST || process.env.HOST || "",
+    apiKey: process.env.ES_API_KEY || process.env.API_KEY || "",
+    username: process.env.ES_USERNAME || process.env.USERNAME || "",
+    password: process.env.ES_PASSWORD || process.env.PASSWORD || "",
+    caCert: process.env.ES_CA_CERT || process.env.CA_CERT || "",
   };
 } 

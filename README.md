@@ -62,8 +62,8 @@ This server connects agents to your Elasticsearch data using the Model Context P
            "@awesome-ai/elasticsearch-mcp"
          ],
          "env": {
-           "HOST": "your-elasticsearch-host",
-           "API_KEY": "your-api-key"
+           "ES_HOST": "your-elasticsearch-host",
+           "ES_API_KEY": "your-api-key"
          }
        }
      }
@@ -84,11 +84,11 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
 
 | Environment Variable | Description | Required |
 |---------------------|-------------|----------|
-| `HOST` | Your Elasticsearch instance URL | Yes |
-| `API_KEY` | Elasticsearch API key for authentication | No |
-| `USERNAME` | Elasticsearch username for basic authentication | No |
-| `PASSWORD` | Elasticsearch password for basic authentication | No |
-| `CA_CERT` | Path to custom CA certificate for Elasticsearch SSL/TLS | No |
+| `ES_HOST` | Your Elasticsearch instance URL (also supports legacy `HOST`) | Yes |
+| `ES_API_KEY` | Elasticsearch API key for authentication (also supports legacy `API_KEY`) | No |
+| `ES_USERNAME` | Elasticsearch username for basic authentication (also supports legacy `USERNAME`) | No |
+| `ES_PASSWORD` | Elasticsearch password for basic authentication (also supports legacy `PASSWORD`) | No |
+| `ES_CA_CERT` | Path to custom CA certificate for Elasticsearch SSL/TLS (also supports legacy `CA_CERT`) | No |
 
 ## Local Development
 
@@ -123,8 +123,8 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
            "/path/to/your/project/dist/index.js"
          ],
          "env": {
-           "HOST": "your-elasticsearch-host",
-           "API_KEY": "your-api-key"
+           "ES_HOST": "your-elasticsearch-host",
+           "ES_API_KEY": "your-api-key"
          }
        }
      }
@@ -133,7 +133,7 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
 
 5. **Debugging with MCP Inspector**
    ```bash
-   HOST=your-elasticsearch-url API_KEY=your-api-key npm run inspector
+   ES_HOST=your-elasticsearch-url ES_API_KEY=your-api-key npm run inspector
    ```
 
    This will start the MCP Inspector, allowing you to debug and analyze requests. You should see:
