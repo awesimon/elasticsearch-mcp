@@ -8,6 +8,7 @@ MCP Server for connecting to your Elasticsearch cluster directly from any MCP Cl
 
 This server connects agents to your Elasticsearch data using the Model Context Protocol. It allows you to interact with your Elasticsearch indices through natural language conversations.
 
+
 ## Demo
 
 [![Elasticsearch MCP Demo](https://img.youtube.com/vi/Wqw1XL8de5A/0.jpg)](https://www.youtube.com/watch?v=Wqw1XL8de5A "Elasticsearch MCP Demo")
@@ -16,23 +17,32 @@ This server connects agents to your Elasticsearch data using the Model Context P
 
 ### Available Features
 
-* `list_indices`: List available Elasticsearch indices, support regex
-* `get_mappings`: Get field mappings for a specific Elasticsearch index
-* `search`: Perform an Elasticsearch search with the provided query DSL
+#### Cluster Management
 * `elasticsearch_health`: Get Elasticsearch cluster health status, optionally including index-level details
+
+#### Index Operations
+* `list_indices`: List available Elasticsearch indices, support regex
 * `create_index`: Create Elasticsearch index with optional settings and mappings
-* `create_mapping`: Create or update mapping structure for an Elasticsearch index
-* `bulk`: Bulk data into an Elasticsearch index
 * `reindex`: Reindex data from a source index to a target index with optional query and script
+
+#### Mapping Management
+* `get_mappings`: Get field mappings for a specific Elasticsearch index
+* `create_mapping`: Create or update mapping structure for an Elasticsearch index
+
+#### Search & Data Operations
+* `search`: Perform an Elasticsearch search with the provided query DSL
+* `bulk`: Bulk data into an Elasticsearch index
+
+#### Template Management
 * `create_index_template`: Create or update an index template
 * `get_index_template`: Get information about index templates
 * `delete_index_template`: Delete an index template
 
 ### How It Works
 
-1. The MCP Client analyzes your request and determines which Elasticsearch operations are needed
-2. The MCP server carries out these operations (listing indices, fetching mappings, performing searches)
-3. The MCP Client processes the results and presents them in a user-friendly format
+1. The MCP Client analyzes your request and determines which Elasticsearch operations are needed.
+2. The MCP server carries out these operations (listing indices, fetching mappings, performing searches).
+3. The MCP Client processes the results and presents them in a user-friendly format.
 
 ## Getting Started
 
@@ -44,7 +54,7 @@ This server connects agents to your Elasticsearch data using the Model Context P
 
 ### Installation & Setup
 
-#### Using the Published NPM Package (coming soon)
+#### Using the Published NPM Package
 
 > [!TIP]
 > The easiest way to use Elasticsearch MCP Server is through the published npm package.
@@ -73,17 +83,9 @@ This server connects agents to your Elasticsearch data using the Model Context P
    ```
 
 2. **Start a Conversation**
-   - Open a new conversation in your MCP Client
-   - The MCP server should connect automatically
-   - You can now ask questions about your Elasticsearch data
-
-### Installing via Smithery
-
-To install Elasticsearch MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@awesimon/elasticsearch-mcp):
-
-```bash
-npx -y @smithery/cli install @awesimon/elasticsearch-mcp --client claude
-```
+   - Open a new conversation in your MCP Client.
+   - The MCP server should connect automatically.
+   - You can now ask questions about your Elasticsearch data.
 
 ### Configuration Options
 
@@ -120,7 +122,7 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
    npm run build
    ```
 
-4. **Run locally in Claude Desktop App, (also support Cusor)**
+4. **Run locally in Claude Desktop App**
    - Open **Claude Desktop App**
    - Go to **Settings > Developer > MCP Servers**
    - Click `Edit Config` and add a new MCP Server with the following configuration:
@@ -141,7 +143,28 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
    }
    ```
 
-5. **Debugging with MCP Inspector**
+5. **Run locally in Cursor Editor**
+   - Open **Cursor Editor**
+   - Go to **Cursor Settings > MCP**
+   - Click `Add new global MCP Server` and add a new MCP Server with the following configuration:
+   ```json
+   {
+     "mcpServers": {
+       "elasticsearch-mcp": {
+         "command": "node",
+         "args": [
+           "/path/to/your/project/dist/index.js"
+         ],
+         "env": {
+           "ES_HOST": "your-elasticsearch-host",
+           "ES_API_KEY": "your-api-key"
+         }
+       }
+     }
+   }
+   ```
+
+6. **Debugging with MCP Inspector**
    ```bash
    ES_HOST=your-elasticsearch-url ES_API_KEY=your-api-key npm run inspector
    ```
@@ -150,29 +173,36 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
 
    ```bash
    Starting MCP inspector...
-   Proxy server listening on port 3000
-
-   🔍 MCP Inspector is up and running at http://localhost:5173 🚀
+   ⚙️ Proxy server listening on port 6277
+   🔍 MCP Inspector is up and running at http://127.0.0.1:6274 🚀
    ```
+
 ## Example Queries
 
 > [!TIP]
 > Here are some natural language queries you can try with your MCP Client.
 
+#### Cluster Management
+* "What is the health status of my Elasticsearch cluster?"
+* "How many active nodes are in my cluster?"
+
+#### Index Operations
 * "What indices do I have in my Elasticsearch cluster?"
+* "Create a new index called 'users' with 3 shards and 1 replica."
+* "Reindex data from 'old_index' to 'new_index'."
+
+#### Mapping Management
 * "Show me the field mappings for the 'products' index."
+* "Add a keyword type field called 'tags' to the 'products' index."
+
+#### Search & Data Operations
 * "Find all orders over $500 from last month."
 * "Which products received the most 5-star reviews?"
-* "What is the health status of my Elasticsearch cluster?"
-* "Create a new index called 'users' with 3 shards and 1 replica."
-* "Add a keyword type field called 'tags' to the 'products' index."
 * "Bulk import these customer records into the 'customers' index."
-* "Reindex data from 'old_index' to 'new_index'."
+
+#### Template Management
 * "Create an index template for logs with pattern 'logs-*'."
 * "Show me all my index templates."
 * "Delete the 'outdated_template' index template."
 
 If you encounter issues, feel free to open an issue on the GitHub repository.
-
-## Inspired by
-- [mcp-server-elasticsearch](https://github.com/elastic/mcp-server-elasticsearch).
