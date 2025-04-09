@@ -2,6 +2,8 @@
 
 [English](./README.md) | [中文](./README.zh-CN.md)
 
+[![smithery badge](https://smithery.ai/badge/@awesimon/elasticsearch-mcp)](https://smithery.ai/server/@awesimon/elasticsearch-mcp)
+
 MCP Server for connecting to your Elasticsearch cluster directly from any MCP Client (like Claude Desktop, Cursor).
 
 This server connects agents to your Elasticsearch data using the Model Context Protocol. It allows you to interact with your Elasticsearch indices through natural language conversations.
@@ -74,6 +76,14 @@ This server connects agents to your Elasticsearch data using the Model Context P
    - Open a new conversation in your MCP Client
    - The MCP server should connect automatically
    - You can now ask questions about your Elasticsearch data
+
+### Installing via Smithery
+
+To install Elasticsearch MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@awesimon/elasticsearch-mcp):
+
+```bash
+npx -y @smithery/cli install @awesimon/elasticsearch-mcp --client claude
+```
 
 ### Configuration Options
 
