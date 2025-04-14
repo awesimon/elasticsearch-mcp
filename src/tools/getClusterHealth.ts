@@ -14,7 +14,7 @@ export async function getClusterHealth(
     // 添加集群状态概述
     content.push({
       type: "text" as const,
-      text: `集群名称: ${response.cluster_name}\n状态: ${response.status}\n节点数: ${response.number_of_nodes}\n数据节点数: ${response.number_of_data_nodes}\n活跃分片数: ${response.active_shards}\n活跃主分片数: ${response.active_primary_shards}\n重定位分片数: ${response.relocating_shards}\n初始化分片数: ${response.initializing_shards}\n未分配分片数: ${response.unassigned_shards}\n待处理任务数: ${response.number_of_pending_tasks}\n`
+      text: `Cluster Name: ${response.cluster_name}\nStatus: ${response.status}\nNodes: ${response.number_of_nodes}\nData Nodes: ${response.number_of_data_nodes}\nActive Shards: ${response.active_shards}\nActive Primary Shards: ${response.active_primary_shards}\nRelocating Shards: ${response.relocating_shards}\nInitializing Shards: ${response.initializing_shards}\nUnassigned Shards: ${response.unassigned_shards}\nPending Tasks: ${response.number_of_pending_tasks}\n`
     });
 
     // 如果请求了索引级别的健康状态
@@ -22,13 +22,13 @@ export async function getClusterHealth(
       const indicesHealth: string[] = [];
       
       for (const [indexName, indexHealth] of Object.entries(response.indices)) {
-        indicesHealth.push(`索引: ${indexName}\n  状态: ${indexHealth.status}\n  主分片数: ${indexHealth.number_of_shards}\n  副本数: ${indexHealth.number_of_replicas}\n  活跃分片数: ${indexHealth.active_shards}\n  活跃主分片数: ${indexHealth.active_primary_shards}\n  未分配分片数: ${indexHealth.unassigned_shards}`);
+        indicesHealth.push(`Index: ${indexName}\n  Status: ${indexHealth.status}\n  Primary Shards: ${indexHealth.number_of_shards}\n  Replicas: ${indexHealth.number_of_replicas}\n  Active Shards: ${indexHealth.active_shards}\n  Active Primary Shards: ${indexHealth.active_primary_shards}\n  Unassigned Shards: ${indexHealth.unassigned_shards}`);
       }
 
       if (indicesHealth.length > 0) {
         content.push({
           type: "text" as const,
-          text: `\n索引健康状态:\n${indicesHealth.join('\n\n')}`
+          text: `\nIndices Health Status:\n${indicesHealth.join('\n\n')}`
         });
       }
     }
@@ -47,4 +47,4 @@ export async function getClusterHealth(
       ]
     };
   }
-} 
+}

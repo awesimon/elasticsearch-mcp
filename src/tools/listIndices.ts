@@ -8,10 +8,9 @@ import { Client } from "@elastic/elasticsearch";
  */
 export async function listIndices(esClient: Client, pattern?: string) {
   try {
-    // 使用ES原生的索引过滤功能
     const response = await esClient.cat.indices({
       format: "json",
-      index: pattern || "*" // 如果没有提供pattern，则获取所有索引
+      index: pattern || "*" // if pattern is undefined, use "*" as default
     });
 
     const indicesInfo = response.map((index) => ({

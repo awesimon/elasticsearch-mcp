@@ -12,7 +12,7 @@ export async function bulk(
         content: [
           {
             type: "text" as const,
-            text: "错误: 没有提供要导入的文档"
+            text: "Error: No documents provided for import"
           }
         ]
       };
@@ -50,7 +50,7 @@ export async function bulk(
     
     content.push({
       type: "text" as const,
-      text: `批量导入完成：\n总文档数: ${documents.length}\n成功导入: ${successCount}\n失败: ${failureCount}\n处理时间: ${response.took}ms`
+      text: `Bulk import completed:\nTotal documents: ${documents.length}\nSuccessfully imported: ${successCount}\nFailed: ${failureCount}\nProcessing time: ${response.took}ms`
     });
 
     // 如果有失败的操作，添加详细信息
@@ -59,13 +59,13 @@ export async function bulk(
         .filter(item => item.index?.error)
         .map(item => {
           const error = item.index?.error;
-          const id = item.index?._id || '未知';
-          return `ID: ${id} - 错误类型: ${error?.type}, 原因: ${error?.reason}`;
+          const id = item.index?._id || 'unknown';
+          return `ID: ${id} - Error type: ${error?.type}, Reason: ${error?.reason}`;
         });
       
       content.push({
         type: "text" as const,
-        text: `失败详情:\n${errors.join('\n')}`
+        text: `Failed details:\n${errors.join('\n')}`
       });
     }
 
@@ -73,14 +73,14 @@ export async function bulk(
       content
     };
   } catch (error) {
-    console.error(`批量导入失败: ${error instanceof Error ? error.message : String(error)}`);
+    console.error(`Bulk import failed: ${error instanceof Error ? error.message : String(error)}`);
     return {
       content: [
         {
           type: "text" as const,
-          text: `错误: ${error instanceof Error ? error.message : String(error)}`
+          text: `Error: ${error instanceof Error ? error.message : String(error)}`
         }
       ]
     };
   }
-} 
+}

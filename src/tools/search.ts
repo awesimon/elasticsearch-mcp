@@ -6,7 +6,6 @@ export async function search(
   queryBody: Record<string, any>
 ) {
   try {
-    // 获取映射以识别文本字段
     const mappingResponse = await esClient.indices.getMapping({
       index,
     });
@@ -18,7 +17,7 @@ export async function search(
       ...queryBody,
     };
 
-    // 始终启用高亮显示
+    // enable highlight
     if (indexMappings.properties) {
       const textFields: Record<string, estypes.SearchHighlightField> = {};
 
@@ -39,7 +38,6 @@ export async function search(
 
     const result = await esClient.search(searchRequest);
 
-    // 提取查询起始位置
     const from = queryBody.from || 0;
 
     const contentFragments = result.hits.hits.map((hit) => {
