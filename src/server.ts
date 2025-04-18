@@ -2,15 +2,23 @@ import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Client } from "@elastic/elasticsearch";
 import { ElasticsearchConfig, createClientOptions } from "./config/schema.js";
-import { listIndices } from "./tools/listIndices.js";
-import { getMappings } from "./tools/getMappings.js";
-import { search } from "./tools/search.js";
-import { getClusterHealth } from "./tools/getClusterHealth.js";
-import { createIndex } from "./tools/createIndex.js";
-import { createMapping } from "./tools/createMapping.js";
-import { bulk } from "./tools/bulk.js";
-import { reindex } from "./tools/reindex.js";
-import { createIndexTemplate, getIndexTemplate, deleteIndexTemplate } from "./tools/createIndexTemplate.js";
+import { 
+  listIndices, 
+  getMappings,
+  createIndex,
+  createIndexTemplate,
+  reindex,
+  createMapping
+} from "./tools/indexManagement.js";
+import { 
+  bulkImport as bulk
+} from "./tools/documentOperations.js";
+import { 
+  search
+} from "./tools/searchOperations.js";
+import { 
+  getClusterHealth
+} from "./tools/clusterManagement.js";
 
 export { 
   listIndices, 
@@ -18,12 +26,10 @@ export {
   search, 
   getClusterHealth, 
   createIndex, 
-  createMapping, 
+  createMapping,
   bulk, 
   reindex, 
-  createIndexTemplate,
-  getIndexTemplate,
-  deleteIndexTemplate
+  createIndexTemplate
 }; 
 
 export async function createElasticsearchMcpServer(
@@ -219,7 +225,7 @@ export async function createElasticsearchMcpServer(
         .describe("Optional script to transform documents during reindex")
     },
     async ({ sourceIndex, destIndex, query, script }) => {
-      return await reindex(esClient, sourceIndex, destIndex, script, query);
+      return await reindex(esClient, sourceIndex, destIndex, script);
     }
   );
 
@@ -241,51 +247,10 @@ export async function createElasticsearchMcpServer(
       
       template: z
         .record(z.any())
-        .describe("Template configuration including settings, mappings, and aliases"),
-      
-      priority: z
-        .number()
-        .optional()
-        .describe("Optional template priority - higher values have higher precedence"),
-      
-      version: z
-        .number()
-        .optional()
-        .describe("Optional template version number")
+        .describe("Template configuration including settings, mappings, and aliases")
     },
-    async ({ name, indexPatterns, template, priority, version }) => {
-      return await createIndexTemplate(esClient, name, indexPatterns, template, priority, version);
-    }
-  );
-
-  // Get index templates
-  server.tool(
-    "get_index_template",
-    "Get information about Elasticsearch index templates",
-    {
-      name: z
-        .string()
-        .optional()
-        .describe("Optional template name filter - if omitted, all templates are returned")
-    },
-    async ({ name }) => {
-      return await getIndexTemplate(esClient, name);
-    }
-  );
-
-  // Delete an index template
-  server.tool(
-    "delete_index_template",
-    "Delete an Elasticsearch index template",
-    {
-      name: z
-        .string()
-        .trim()
-        .min(1, "Template name is required")
-        .describe("Name of the template to delete")
-    },
-    async ({ name }) => {
-      return await deleteIndexTemplate(esClient, name);
+    async ({ name, indexPatterns, template }) => {
+      return await createIndexTemplate(esClient, name, indexPatterns, template);
     }
   );
 
