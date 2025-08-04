@@ -95,11 +95,35 @@ Elasticsearch MCP 服务器支持以下配置选项来连接到您的 Elasticsea
 
 | 环境变量 | 描述 | 必需 |
 |---------------------|-------------|----------|
-| `ES_HOST` | 您的 Elasticsearch 实例 URL（兼容旧版 `HOST`） | 是 |
+| `ES_HOST` | 您的 Elasticsearch 实例 URL(s) - 支持单个 URL 或逗号分隔的多个 URL（兼容旧版 `HOST`） | 是 |
 | `ES_API_KEY` | 用于身份验证的 Elasticsearch API 密钥（兼容旧版 `API_KEY`） | 否 |
 | `ES_USERNAME` | 用于基本身份验证的 Elasticsearch 用户名（兼容旧版 `USERNAME`） | 否 |
 | `ES_PASSWORD` | 用于基本身份验证的 Elasticsearch 密码（兼容旧版 `PASSWORD`） | 否 |
 | `ES_CA_CERT` | Elasticsearch SSL/TLS 的自定义 CA 证书路径（兼容旧版 `CA_CERT`） | 否 |
+
+### 多URL配置
+
+您可以配置多个 Elasticsearch 节点以实现高可用性和负载均衡：
+
+```json
+{
+  "mcpServers": {
+    "elasticsearch-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@awesome-ai/elasticsearch-mcp"
+      ],
+      "env": {
+        "ES_HOST": "https://es-node1:9200,https://es-node2:9200,https://es-node3:9200",
+        "ES_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+客户端将自动处理配置节点之间的故障转移和负载均衡。
 
 ## 本地开发
 

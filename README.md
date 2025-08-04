@@ -96,11 +96,35 @@ The Elasticsearch MCP Server supports configuration options to connect to your E
 
 | Environment Variable | Description | Required |
 |---------------------|-------------|----------|
-| `ES_HOST` | Your Elasticsearch instance URL (also supports legacy `HOST`) | Yes |
+| `ES_HOST` | Your Elasticsearch instance URL(s) - supports single URL or comma-separated multiple URLs (also supports legacy `HOST`) | Yes |
 | `ES_API_KEY` | Elasticsearch API key for authentication (also supports legacy `API_KEY`) | No |
 | `ES_USERNAME` | Elasticsearch username for basic authentication (also supports legacy `USERNAME`) | No |
 | `ES_PASSWORD` | Elasticsearch password for basic authentication (also supports legacy `PASSWORD`) | No |
 | `ES_CA_CERT` | Path to custom CA certificate for Elasticsearch SSL/TLS (also supports legacy `CA_CERT`) | No |
+
+### Multiple URLs Configuration
+
+You can configure multiple Elasticsearch nodes for high availability and load balancing:
+
+```json
+{
+  "mcpServers": {
+    "elasticsearch-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@awesome-ai/elasticsearch-mcp"
+      ],
+      "env": {
+        "ES_HOST": "https://es-node1:9200,https://es-node2:9200,https://es-node3:9200",
+        "ES_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+The client will automatically handle failover and load balancing between the configured nodes.
 
 ## Local Development
 

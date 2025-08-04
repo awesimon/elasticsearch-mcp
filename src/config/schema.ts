@@ -5,12 +5,13 @@ import fs from "fs";
 // 配置验证模式
 export const ConfigSchema = z
   .object({
-    url: z
-      .string()
-      .trim()
-      .min(1, "Elasticsearch URL cannot be empty")
-      .url("Invalid Elasticsearch URL format")
-      .describe("Elasticsearch server URL"),
+    urls: z
+      .union([
+        z.string().trim().min(1, "Elasticsearch URL cannot be empty").url("Invalid Elasticsearch URL format"),
+        z.array(z.string().trim().min(1, "Elasticsearch URL cannot be empty").url("Invalid Elasticsearch URL format"))
+      ])
+      .transform((val) => Array.isArray(val) ? val : [val])
+      .describe("Elasticsearch server URLs (single URL or array of URLs)"),
 
     apiKey: z
       .string()
@@ -38,10 +39,10 @@ export type ElasticsearchConfig = z.infer<typeof ConfigSchema>;
 // 根据配置创建客户端选项
 export function createClientOptions(config: ElasticsearchConfig): ClientOptions {
   const validatedConfig = ConfigSchema.parse(config);
-  const { url, apiKey, username, password, caCert } = validatedConfig;
+  const { urls, apiKey, username, password, caCert } = validatedConfig;
 
   const clientOptions: ClientOptions = {
-    node: url,
+    nodes: urls,
   };
 
   // 设置认证
@@ -70,8 +71,13 @@ export function createClientOptions(config: ElasticsearchConfig): ClientOptions 
 
 // 从环境变量创建配置
 export function loadConfigFromEnv(): ElasticsearchConfig {
+  const esHost = process.env.ES_HOST || process.env.HOST || "";
+  
+  // 支持多个URL，用逗号分隔
+  const urls = esHost.split(',').map(url => url.trim()).filter(url => url.length > 0);
+  
   return {
-    url: process.env.ES_HOST || process.env.HOST || "",
+    urls: urls.length > 0 ? urls : [""],
     apiKey: process.env.ES_API_KEY || process.env.API_KEY || "",
     username: process.env.ES_USERNAME || process.env.USERNAME || "",
     password: process.env.ES_PASSWORD || process.env.PASSWORD || "",
